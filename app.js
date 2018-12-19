@@ -11,8 +11,8 @@ const adminRoutes = require('./routes/admin');
 app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use("",signRoutes);
-app.use("/admin",adminRoutes);
+app.use(signRoutes);
+app.use(adminRoutes);
 
 
 
