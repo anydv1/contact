@@ -1,5 +1,5 @@
 //const http = require('http');
-//const path = require('path');
+const path = require('path');
 const bodyParser =require('body-parser');
 
 const express = require('express');
@@ -8,7 +8,7 @@ const app = express();
 const signRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 
-
+app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use("",signRoutes);
