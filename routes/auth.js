@@ -1,16 +1,27 @@
 const path = require('path');
 
 const express = require('express');
+const contactList = require('./contact');
+
 
 const router = express.Router();
+
 
 router.get('/signup', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../', 'views', 'front.html'));
 });
+// router.post('/signup', (req, res, next) => {
+//   //res.redirect('/login');
+//   res.sendFile(path.join(__dirname, '../', 'views', 'login.html'));
+
+// });
 router.get('/login', (req, res, next) => {
     res.sendFile(path.join(__dirname, '../', 'views', 'login.html'));
   });
-router.get('/contact', (req, res, next) => {
+  router.post('/login', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '../', 'views', 'contact.html'));
+  });
+router.post('/contact', (req, res, next) => {
     res.sendFile(path.join(__dirname, '../', 'views', 'contact.html'));
   });
 
