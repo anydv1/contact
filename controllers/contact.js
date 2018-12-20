@@ -1,5 +1,7 @@
 const Contact = require('../models/contact');
 const mongoose = require('mongoose');
+
+
 exports.getAddcontact = (req, res, next) => {
   res.render('add-contact', {
     pageTitle: 'Add Contaact',
@@ -9,6 +11,8 @@ exports.getAddcontact = (req, res, next) => {
   });
   //console.log('QWERTYUi');
 };
+
+
 exports.postAddcontact = (req, res, next) => {
 //console.log('!!!!!!!!!!!!!',req.body);
 
@@ -33,3 +37,38 @@ contact.save()
     console.log(err);
   });
 };
+
+
+exports.getSignup = (req, res, next) => {
+  res.render('front', {
+    pageTitle: 'Sign Up',
+    path: '/signup',
+    editing:true
+
+  });
+  console.log('esgtrfhjk');
+};
+
+// exports.postSignup-=(req,res,next) =>{
+//   console.log('wertfyuhijodcfvgbhn');
+//   res.redirect('/login');
+// };
+
+exports.getContact=(req, res, next) =>{
+  res.render('contact',{
+    pageTitle:'Contacts',
+    path:'/contact'
+  });
+  console.log('get contactsssssssssss');
+};
+
+exports.getLogin=(req, res, next) =>{
+  res.render('login',{
+    pageTitle:'Log In',
+    path: '/login'
+  });
+};
+
+// exports.postLogin=(req, res, next)  =>{
+// res.redirect('/contact');
+// };

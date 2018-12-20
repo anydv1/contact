@@ -11,6 +11,16 @@ const router = express.Router();
 router.get('/add-contact', productsController.getAddcontact);
 router.post('/contact', productsController.postAddcontact);
 
+
+router.get('/signup', productsController.getSignup);
+//router.post('/signup', productsController.postSignup);
+
+router.get('/login', productsController.getLogin);
+//router.post('/login', productsController.ppostLogin);
+
+router.get('/contact', productsController.getContact);
+
+
 module.exports = router;
 
 
