@@ -9,13 +9,10 @@ const adminData = require('./admin');
 
 
 const router = express.Router();
-router.get('/',(req,res,next )  =>{
-    console.log('admin.js', adminData.contacts);
+router.get('/contact',(req,res,next )  =>{
+  res.redirect('/');
 
-    // res.status(404).send('<h1>Page not found</h1>');
-   res.sendFile(path.join(__dirname, '../', 'views', 'contact.html'));
-     
- });
+});
 
 
 module.exports = router;

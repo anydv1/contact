@@ -1,17 +1,17 @@
 const path = require('path');
 
 const express = require('express')
-const rootDir = require('../util/path');
-const authData = require('./auth');
-const contactList = require('./contact');
+//const rootDir = require('../util/path');
+//const authData = require('./auth');
+//const contactList = require('./contact');
 const productsController = require('../controllers/contact');
 
 
 const router = express.Router();
 router.get('/add-contact', productsController.getAddcontact);
-router.post('/add-product', productsController.postAddcontact);
+router.post('/contact', productsController.postAddcontact);
 
-
+module.exports = router;
 
 
 // const contacts =[];
