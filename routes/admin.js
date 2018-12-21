@@ -5,7 +5,7 @@ const express = require('express')
 //const authData = require('./auth');
 //const contactList = require('./contact');
 const productsController = require('../controllers/contact');
-//const adminController = require('../controllers/admin');
+const adminController = require('../controllers/admin');
 
 
 const router = express.Router();
@@ -17,8 +17,8 @@ router.post('/add-contact', productsController.postAddcontact);
 
 router.get('/contact', productsController.getContact);
 
-router.get('/update', productsController.getUpdate);
-//router.post('/update', adminController.postUpdate);
+router.get('/update',  adminController.getUpdate);
+router.post('/update',  adminController.postUpdate);
 
 module.exports = router;
 

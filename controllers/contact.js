@@ -22,10 +22,12 @@ exports.postAddcontact = (req, res, next) => {
 
   //contacts.push({ name: req.body.name });
   //console.log('!!!!!!!!!1',req.body.name);
+     const prodId = req.body.userId;
     const name=req.body.name;
     const email=req.body.email;
     const number=req.body.number;
     const contact = new Contact({
+      prodId:prodId,
       name:name,
       email:email,
       number:number
@@ -34,7 +36,7 @@ exports.postAddcontact = (req, res, next) => {
 contact.save()
   .then(result => {
     // console.log(result);
-    console.log('Created contact');
+    console.log('Created contact',contact);
     res.redirect('/contact');
   })
   .catch(err => {
@@ -154,11 +156,5 @@ exports.postLogin = (req, res, next) => {
 // };
 
 
-exports.getUpdate=(req, res, next) =>{
-  
-  res.render('update',{
-    pageTitle:'Upadte',
-    path:'/update'
-  });
-};
+
   // console.log('get contactsssssssssss');

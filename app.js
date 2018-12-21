@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const User = require('./models/user');
 
-const csrf = require('csurf');
+// const csrf = require('csurf');
 
 
 
@@ -34,7 +34,7 @@ app.use(flash());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use
-     (session({secret: 'secret',resave:false,saveUninitialized:false})
+     (session({secret: 'secret',resave:false,saveUninitialized:false, store: store})
 );
 app.use((req, res, next) => {
   if (!req.session.user) {
