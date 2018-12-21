@@ -1,3 +1,5 @@
+//const bcrypt = require('bcryptjs');
+
 const Contact = require('../models/contact');
 const User = require('../models/user');
 
@@ -99,25 +101,11 @@ exports.getLogin=(req, res, next) =>{
 };
 
 exports.postLogin=(req, res, next)  =>{
-  const email=req.body.email;
-  const psw=req.body.psw;
- 
-
-  const user= new User({
-    email:email,
-    psw:psw
-  
-  });
-user.save()
-.then(result => {
-  // console.log(result);
-  console.log('welcome!');
+  console.log('retdfyughijk');
   res.redirect('/contact');
-})
-.catch(err => {
-  console.log(err);
-});
 };
+
+
 exports.getUpdate=(req, res, next) =>{
   
   res.render('update',{

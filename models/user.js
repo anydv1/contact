@@ -17,11 +17,11 @@ const userSchema = new Schema({
     required: true
     
  },
- pswcnfrm: {
-    type: String,
-    required: true
+//  pswcnfrm: {
+//     type: String,
+//     required: true
     
-}
+// }
 });
 
 module.exports = mongoose.model('User', userSchema);
