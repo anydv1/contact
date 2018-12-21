@@ -1,4 +1,4 @@
-//const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 const Contact = require('../models/contact');
 const User = require('../models/user');
@@ -60,15 +60,23 @@ exports.postSignup=(req,res,next) =>{
   const email=req.body.email;
   const psw=req.body.psw;
   const pswcnfrm=req.body.pswcnfrm;
-
-  const user= new User({
+   User.findOne({email:email})
+   .then(userDoc =>{
+          if(userDoc){
+            return res.redirect('/signup');
+          }
+          return bcrypt.hash(psw, 12);
+        })
+        .then(hashedPassword => {
+  const user = new User({
     name:name,
     email:email,
-    psw:psw,
+    psw:hashedPassword,
     pswcnfrm:pswcnfrm
-  
+ 
   });
-user.save()
+return user.save()
+})
 .then(result => {
   // console.log(result);
   console.log('Signed Up');
@@ -78,11 +86,11 @@ user.save()
   console.log(err);
 });
 };
-
+// contact route
 exports.getContact=(req, res, next) =>{
   Contact.find()
   .then(contacts =>{
-    console.log(contacts);
+    //console.log(contacts);
   
   res.render('contact',{
     prods:contacts,
@@ -93,6 +101,9 @@ exports.getContact=(req, res, next) =>{
   // console.log('get contactsssssssssss');
 };
 
+
+//login get/post
+
 exports.getLogin=(req, res, next) =>{
   res.render('login',{
     pageTitle:'Log In',
@@ -100,10 +111,42 @@ exports.getLogin=(req, res, next) =>{
   });
 };
 
-exports.postLogin=(req, res, next)  =>{
-  console.log('retdfyughijk');
-  res.redirect('/contact');
+exports.postLogin = (req, res, next) => {
+  const name=req.body.name;
+  const email=req.body.email;
+  const psw=req.body.psw;
+  const pswcnfrm=req.body.pswcnfrm;
+
+  User.findOne({ email: email })
+    .then(user => {
+      if (!user) {
+        return res.redirect('/login');
+      }
+      bcrypt
+        .compare(psw, user.psw)
+        .then(doMatch => {
+          if (doMatch) {
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            return req.session.save(err => {
+              console.log(err);
+              res.redirect('/contact');
+            });
+          }
+          res.redirect('/login');
+        })
+        .catch(err => {
+          console.log(err);
+          res.redirect('/login');
+        });
+    })
+    .catch(err => console.log(err));
 };
+
+// exports.postLogin=(req, res, next)  =>{
+//   console.log('retdfyughijk');
+//   res.redirect('/contact');
+// };
 
 
 exports.getUpdate=(req, res, next) =>{

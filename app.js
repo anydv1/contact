@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser =require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const User = require('./models/user');
+
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const MONGO_URL = 'mongodb://localhost:27017/contacts';
@@ -29,6 +31,18 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use
      (session({secret: 'secret',resave:false,saveUninitialized:false})
 );
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+    .then(user => {
+      req.user = user;
+      next();
+    })
+    .catch(err => console.log('2134678wesrdtfyguhjikk',err));
+});
+
 app.use(adminRoutes);
 app.use(signRoutes);
  app.use(contactRoutes);
