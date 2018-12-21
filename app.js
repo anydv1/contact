@@ -1,3 +1,5 @@
+const flash = require('connect-flash');
+
 const path = require('path');
 
 const express = require('express');
@@ -5,6 +7,10 @@ const bodyParser =require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const User = require('./models/user');
+
+const csrf = require('csurf');
+
+
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -17,14 +23,13 @@ const store = new MongoDBStore({
 });
 
 
-
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
  const contactRoutes = require('./routes/contact');
 const signRoutes = require('./routes/auth');
-
+app.use(flash());
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')));

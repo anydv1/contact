@@ -96,6 +96,10 @@
                     </ul>
                 </nav>
             </header>
+            <main>
+                    <% if (errorMessage) { %>
+                        <div class="user-message user-message--error"><%= errorMessage %></div>
+                    <% } %>
   <form action="/login" method="post">
     <div class="form control">
         <h1>Login</h1>
@@ -125,5 +129,6 @@
         </div>
       </div>
   </form>
+</main>
 </body>
 </html>

@@ -5,22 +5,20 @@ const express = require('express')
 //const authData = require('./auth');
 //const contactList = require('./contact');
 const productsController = require('../controllers/contact');
+//const adminController = require('../controllers/admin');
 
 
 const router = express.Router();
 router.get('/add-contact', productsController.getAddcontact);
-router.post('/contact', productsController.postAddcontact);
+router.post('/add-contact', productsController.postAddcontact);
 
 
-router.get('/signup', productsController.getSignup);
-//router.post('/signup', productsController.postSignup);
 
-router.get('/login', productsController.getLogin);
-//router.post('/login', productsController.ppostLogin);
 
 router.get('/contact', productsController.getContact);
 
 router.get('/update', productsController.getUpdate);
+//router.post('/update', adminController.postUpdate);
 
 module.exports = router;
 

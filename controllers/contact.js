@@ -47,14 +47,15 @@ exports.getSignup = (req, res, next) => {
   res.render('front', {
     pageTitle: 'Sign Up',
     path: '/signup',
-    editing:true
+    // errorMessage: req.flash('error'),
+     editing:true
 
   });
   //console.log('esgtrfhjk');
 };
 
 exports.postSignup=(req,res,next) =>{
-  console.log('wertfyuhijodcfvgbhn');
+  // console.log('wertfyuhijodcfvgbhn');
   // res.redirect('/login');
   const name=req.body.name;
   const email=req.body.email;
@@ -63,7 +64,8 @@ exports.postSignup=(req,res,next) =>{
    User.findOne({email:email})
    .then(userDoc =>{
           if(userDoc){
-            return res.redirect('/signup');
+        //  req.flash('error','Existing User!');
+           return res.redirect('/signup');
           }
           return bcrypt.hash(psw, 12);
         })
@@ -107,7 +109,9 @@ exports.getContact=(req, res, next) =>{
 exports.getLogin=(req, res, next) =>{
   res.render('login',{
     pageTitle:'Log In',
-    path: '/login'
+    path: '/login',
+    errorMessage: req.flash('error')
+
   });
 };
 
@@ -120,6 +124,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then(user => {
       if (!user) {
+         req.flash('error','Invalid email or password');
         return res.redirect('/login');
       }
       bcrypt
