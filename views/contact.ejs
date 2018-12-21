@@ -23,50 +23,42 @@
                 </nav>
             </header>
             <main>
-
-
+                    
+                    
                 <table style="width:100%" class="grid">
-                            <tr>
-                                    <th>Name</th>
-                                    <th>Email</th> 
-                                    <th>Mobile number</th>
-                                  </tr>
-                        
-                     <tr>
-                              <td>Everety</td>
-                              <td>new@new.com</td> 
-                              <td>943245678</td>
-                    </tr>
-                          </table>
+                    <thead>
+
+
+                        <tr>
+                                        <th id="name">Name</th>
+                                        <th id="email">Email</th> 
+                                        <th id="nuumber">Mobile number</th>
+                                        <th id="action">Action</th>
+                                        <th id="action">Delete</th>
+                                      </tr>
+                    </thead> 
+                    <tbody>
+                            <% for(var i=0; i<prods.length; i++) {%>
+                                    <tr style="text:center">
+                                      <td style="text-align :center"> <%= prods[i].name%> </td>
+                                        <td style="text-align :center">  <%= prods[i].email%> </td>
+                                        <td style="text-align :center"> <%= prods[i].number%> </td>
+                                        <td style="text-align :center">
+                                               
+                                                <a href="/update" class="btn">Update/Edit</a></td>
+                                             
+                                        <td style="text-align :center"> 
+                                           <button type="Button" class="btn" > Delete </button>
+                                        </td>
+                                    </tr>
+                                 <% } %>
+                    </tbody>       
+
+                     </table>
                     
-                <% if (prods.length > 0) { %>
-                    <div class="grid">
-                        <% for (let contact of prods) { %>
-                            <article class="card contact-item">
-                                <div class="card__header">
-                                 <h2 class="contact__name">
-                                        Name-<%= contact.name %>
-                                 </h2>
-                                </div>
-                                <div class="card__content">
-                                    <h2 class="card__email">
-                                  Email-<%= contact.email %>
-                                    </h2>
-                                </div>
-                                <div class="card__content">
-                                    <h2 class="contact__number">
-                                       Mobile Number- <%= contact.number %>
-                                    </h2>
-                                </div>
-                    
-                            </article>
-                            <% } %>
-                    </div>
-                    <% } else { %>
-                        <h1>No Contacts Found!</h1>
-                        <% } %>
+            
+                
             </main>
-<!--   
-  <h1> List of all your contacts.....</h1> -->
+
 </body>
 </html>

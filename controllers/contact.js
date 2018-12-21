@@ -88,7 +88,7 @@ exports.getContact=(req, res, next) =>{
     path:'/contact'
   });
 })
-  console.log('get contactsssssssssss');
+  // console.log('get contactsssssssssss');
 };
 
 exports.getLogin=(req, res, next) =>{
@@ -118,3 +118,11 @@ user.save()
   console.log(err);
 });
 };
+exports.getUpdate=(req, res, next) =>{
+  
+  res.render('update',{
+    pageTitle:'Upadte',
+    path:'/update'
+  });
+};
+  // console.log('get contactsssssssssss');

@@ -20,6 +20,7 @@ router.get('/login', productsController.getLogin);
 
 router.get('/contact', productsController.getContact);
 
+router.get('/update', productsController.getUpdate);
 
 module.exports = router;
 
