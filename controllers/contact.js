@@ -1,4 +1,6 @@
 const Contact = require('../models/contact');
+const User = require('../models/user');
+
 const mongoose = require('mongoose');
 
 
@@ -46,19 +48,46 @@ exports.getSignup = (req, res, next) => {
     editing:true
 
   });
-  console.log('esgtrfhjk');
+  //console.log('esgtrfhjk');
 };
 
-// exports.postSignup-=(req,res,next) =>{
-//   console.log('wertfyuhijodcfvgbhn');
-//   res.redirect('/login');
-// };
+exports.postSignup=(req,res,next) =>{
+  console.log('wertfyuhijodcfvgbhn');
+  // res.redirect('/login');
+  const name=req.body.name;
+  const email=req.body.email;
+  const psw=req.body.psw;
+  const pswcnfrm=req.body.pswcnfrm;
+
+  const user= new User({
+    name:name,
+    email:email,
+    psw:psw,
+    pswcnfrm:pswcnfrm
+  
+  });
+user.save()
+.then(result => {
+  // console.log(result);
+  console.log('Signed Up');
+  res.redirect('/login');
+})
+.catch(err => {
+  console.log(err);
+});
+};
 
 exports.getContact=(req, res, next) =>{
+  Contact.find()
+  .then(contacts =>{
+    console.log(contacts);
+  
   res.render('contact',{
+    prods:contacts,
     pageTitle:'Contacts',
     path:'/contact'
   });
+})
   console.log('get contactsssssssssss');
 };
 
@@ -69,6 +98,23 @@ exports.getLogin=(req, res, next) =>{
   });
 };
 
-// exports.postLogin=(req, res, next)  =>{
-// res.redirect('/contact');
-// };
+exports.postLogin=(req, res, next)  =>{
+  const email=req.body.email;
+  const psw=req.body.psw;
+ 
+
+  const user= new User({
+    email:email,
+    psw:psw
+  
+  });
+user.save()
+.then(result => {
+  // console.log(result);
+  console.log('welcome!');
+  res.redirect('/contact');
+})
+.catch(err => {
+  console.log(err);
+});
+};

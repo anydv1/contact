@@ -10,10 +10,10 @@ const productsController = require('../controllers/contact');
 
 const router = express.Router();
 router.get('/signup', productsController.getSignup);
-//router.post('/signup', productsController.postSignup);
+router.post('/login', productsController.postSignup);
 
-router.get('/login', productsController.getLogin);
-//router.post('/login', productsController.ppostLogin);
+//  router.get('/login', productsController.getLogin);
+//  router.post('/login', productsController.postLogin);
 
 
 module.exports = router;
