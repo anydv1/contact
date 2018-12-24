@@ -48,25 +48,37 @@ exports.getEditContact = (req, res, next) => {
   //console.log('QWERTYUi');
 };
 
-exports.postEditContact= (req, res, next) => {
-  const prodId = req.body.contactId;
+exports.postEditContact= (req, res) => {
+  console.log('req.body', req.body);
   const updatedname = req.body.name;
-  const updatedemail= req.body.email;
   const updatednumber = req.body.number;
- console.log('345678',prodId);
+  const oldemail = req.body.email.trim();
 
-  Contact.findById(prodId)
-    .then(contacts => {
-      contacts.name= updatedname;
-    contacts.email=updatedemail;
-      contacts.number= updatednumber;
-      return contact.save();
+ console.log('345678',updatedname, updatednumber, oldemail, typeof(oldemail), oldemail.length);
+
+  Contact.findOne({email: oldemail})
+    .then(contact=> {
+
+      console.log("cpnncccccccccc", contact);
+      if(contact){
+        contact.name= updatedname;
+        contact.number= updatednumber;
+        contact.save().then(resp =>{
+         // res.redirect('/contact');
+            
+          console.log("resp", resp)
+          return res.send({status : true, message : "data save successfully"})
+
+        }).catch(err =>{
+          console.log("errrrrrr", err);
+          return res.send({status : false, message : "Internal server error"})
+  
+        });
+      }
+    
+    }).catch(err => {
+      console.log('vvvvvvvvvvvvv', err);
     })
-    .then(result => {
-      console.log('UPDATED!');
-      res.redirect('/contact');
-    })
-    .catch(err => console.log(err));
 };
 
 
@@ -92,3 +104,19 @@ exports.postEditContact= (req, res, next) => {
 //       })
 //       .catch(err => console.log(err));
 //   };
+
+
+
+
+
+
+
+exports.postDeleteContact= (req, res, next) => {
+  const prodId = req.body.contacttId;
+  Contact.findOneAndDelete(prodId)
+    .then(() => {
+      console.log('DESTROYED PRODUCT');
+      res.redirect('/contact');
+    })
+    .catch(err => console.log(err));
+};

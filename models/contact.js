@@ -21,8 +21,8 @@ const contactSchema = new Schema({
     ref: 'User'
   }
 });
-
-module.exports = mongoose.model('Contact', contactSchema);
+var contact = mongoose.model('Contact', contactSchema)
+module.exports = contact;
 
 // const contacts = [];
 

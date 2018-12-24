@@ -40,23 +40,20 @@
                     <tbody>
                             <% for(var i=0; i<prods.length; i++) {%>
                                     <tr style="text:center">
-                                      <td style="text-align :center"> <%= prods[i].name%> </td>
-                                        <td style="text-align :center">  <%= prods[i].email%> </td>
-                                        <td style="text-align :center"> <%= prods[i].number%> </td>
+                                      <td contentEditable ="false"style="text-align :center" id="name<%= i %>"> <%= prods[i].name%> </td>
+                                        <td  contentEditable ="false" style="text-align :center" id="email<%= i %>">  <%= prods[i].email%> </td>
+                                        <td contentEditable ="false"style="text-align :center" id="number<%= i %>"> <%= prods[i].number%> </td>
             
                                              
-                                        <td style="text-align :center"> 
-                                            <div class="card__actions">
-                                                <a href="/update" class="btn">Edit</a>
-                      </div>
-                                        </td>
+                            <td style="text-align :center"><button id="edit<%= i %>" type="button" onclick="enabled(this.id)">Edit</td>
                                         <td style="text-align :center">
                                     
                                                 <div class="card__actions">
-                                                        <form action="/update" method="POST">
-                                                     <input type="hidden"value="<%= prods[i]._id %>" name="contactId">
+                                                        <form action="/delete" method="POST">
+                                                    <input type="hidden"value="<%= prods[i]._id %>" name="contactId">
                                                     <button class="btn" type="submit">Delete</button>
                                                 </form>
+                                               
                                                
                                             </div>
                                         </td>
@@ -69,6 +66,42 @@
             
                 
             </main>
+<script>
+    function enabled(data){
+        console.log('>>>>>>>>>>>>>',data)
+        var j=data.slice(4);
+        console.log('<<<<<<<<<<<<<',j);
+        document.getElementById(`name${j}`).setAttribute("contenteditable","true");
+      document.getElementById(`email${j}`).setAttribute("contenteditable", "false");
+      document.getElementById(`number${j}`).setAttribute("contenteditable", "true");
+      document.getElementById(`name${j}`).focus();
+
+      // oldemail = document.getElementById(`email${j}`).innerHTML;
+      console.log('????????????????',document.getElementById(`edit${j}`).innerText='Update')
+      document.getElementById(`edit${j}`).innerText='Update';
+      document.getElementById(`edit${j}`).removeAttribute("onclick");
+      document.getElementById(`edit${j}`).setAttribute("onclick","updateRow(this.id)");
+    }
+
+    function updateRow(id){
+        var id = id.slice(4,5);
+        var name = document.getElementById(`name${id}`).innerHTML;
+        var number = document.getElementById(`number${id}`).innerHTML;
+        var email = document.getElementById(`email${id}`).innerHTML;
+
+        console.log("name number", name, number, email);
+        axios.post('/update', {name : name, number : number, email : email}).then(function(updatedData){
+                if(updatedData.status){
+                    console.log("updateddddd", updatedData)
+
+
+                }
+        })
+
+    }
+</script>
 
 </body>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"> </script>                       
+
 </html>
