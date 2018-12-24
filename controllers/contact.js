@@ -7,11 +7,14 @@ const mongoose = require('mongoose');
 
 
 exports.getAddcontact = (req, res, next) => {
+  Contact.find()
+  .then(contacts =>{
   res.render('add-contact', {
-    pageTitle: 'Add Contaact',
+    pageTitle: 'Add Contact',
     path: '/add-contact',
+    prods: contacts,
     editing:true
-
+  })
   });
   //console.log('QWERTYUi');
 };
@@ -21,11 +24,12 @@ exports.postAddcontact = (req, res, next) => {
 //console.log('!!!!!!!!!!!!!',req.body);
 
   //contacts.push({ name: req.body.name });
-  //console.log('!!!!!!!!!1',req.body.name);
-     const prodId = req.body.userId;
+  //console.log('!!!!!!!!!1',prodId);
+     const prodId = req.body.contactId;
     const name=req.body.name;
     const email=req.body.email;
     const number=req.body.number;
+    console.log('456788',prodId);
     const contact = new Contact({
       prodId:prodId,
       name:name,

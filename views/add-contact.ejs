@@ -131,6 +131,7 @@
 
             <label for="mobile"><b>Mobile Number</b></label>
             <input type="text" placeholder="Enter number" name="number" required>
+
         </div> 
     <br/> 
     <!-- <div class="form control">
@@ -147,6 +148,8 @@
     <!--    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>    -->
     
         <div class="clearfix">
+                <input type="hidden"value="<%= prods._id %>" name="contactId">
+
           <button type="submit" class="btn">Add-Contact</button>
         </div>
       </div>

@@ -109,7 +109,7 @@
                     </ul>
                 </nav>
             </header>
-  <form action="/contact" >
+  <form action="/update" method="POST" >
     <div class="form control">
         <h1>Edit Contact</h1>
         <p>Edit the existing contact</p>
@@ -131,6 +131,8 @@
 
             <label for="mobile"><b>Mobile Number</b></label>
             <input type="text" placeholder="Enter number" name="number" required>
+            <input type="hidden"value="<%= prods._id %>" name="contactId">
+
         </div> 
     <br/> 
     <!-- <div class="form control">
