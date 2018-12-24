@@ -53,7 +53,8 @@ app.use(signRoutes);
  app.use(contactRoutes);
 
 app.use((req,res,next)=>{
-    res.send('<h1> Page not found </h1>');
+  console.log('fdfdfgghj');
+    // res.send('<h1> Page not found </h1>');
 });
 
 

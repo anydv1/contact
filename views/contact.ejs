@@ -39,16 +39,26 @@
                     </thead> 
                     <tbody>
                             <% for(var i=0; i<prods.length; i++) {%>
-                                    <tr style="text:center">
-                                      <td style="text-align :center"> <%= prods[i].name%> </td>
-                                        <td style="text-align :center">  <%= prods[i].email%> </td>
-                                        <td style="text-align :center"> <%= prods[i].number%> </td>
-                                        <td style="text-align :center">
-                                               
-                                                <a href="/update" class="btn">Update</a></td>
+                                    <tr  id= <%= `row${i}`%>  style="text:center">
+                                      <td id= <%= `name${i}`%> style="text-align :center"> <%= prods[i].name%> </td>
+                                        <td id=  <%= `email${i}`%>  style="text-align :center">  <%= prods[i].email%> </td>
+                                        <td id= <%= `number${i}`%>  style="text-align :center"> <%= prods[i].number%> </td>
+            
                                              
                                         <td style="text-align :center"> 
-                                           <button type="Button" class="btn" > Delete </button>
+                                            <div class="card__actions">
+                                                <a id =<%=`edit${i}`%> onclick = "editRow(this.id)" class="btn">Edit</a>
+                               </div>
+                                        </td>
+                                        <td style="text-align :center">
+                                    
+                                                <div class="card__actions">
+                                                        <form action="/update" method="POST">
+                                                     <input type="hidden"  name="contactId">
+                                                    <button class="btn" type="submit">Delete</button>
+                                                </form>
+                                               
+                                            </div>
                                         </td>
                                     </tr>
                                  <% } %>
@@ -59,6 +69,6 @@
             
                 
             </main>
-
+<script  src="js/edit.js" type="text/javascript" ></script>
 </body>
 </html>

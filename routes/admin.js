@@ -17,8 +17,8 @@ router.post('/add-contact', productsController.postAddcontact);
 
 router.get('/contact', productsController.getContact);
 
-router.get('/update',  adminController.getUpdate);
-router.post('/update',  adminController.postUpdate);
+router.get('/update',  adminController.getEditContact);
+router.post('/update',  adminController.postEditContact);
 
 module.exports = router;
 

@@ -6,21 +6,40 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 
 
-exports.getUpdate=(req, res, next) =>{
-  
-    res.render('update',{
-      pageTitle:'Upadte',
-      path:'/update'
-    });
+exports.getEditContact = (req, res, next) => {
+    const editMode = req.query.edit;
+    console.log('wertyuiopp',req.query);
+    if (!editMode) {
+        //console.log('turn the   edit mode on')
+      return res.redirect('/contact');
+    }
+    const prodId = req.params.contactId;
+    console.log('WQERYTIUOP',prodId);
+   Contact.findById(prodId)
+      .then(contact => {
+        if (!product) {
+          return res.redirect('/');
+        }
+        res.render('/update', {
+          pageTitle: 'Edit Contact',
+          path: '/update',
+          editing: editMode,
+       contact: contact
+        });
+      })
+      .catch(err => console.log(err));
   };
 
-exports.postUpdate = (req, res, next) => {
+
+exports.postEditContact = (req, res, next) => {
+
   //const prodId = req.body._Id;
   const updatedName = req.body.name;
   const updatedEmail = req.body.email;
   const updatedNumber = req.body.number;
+
   
-product.findById(prodId).then(contact =>{
+product.find({email : updatedEmail}).then(contact =>{
     contact.name=updatedName;
     contact.email=updatedEmail;
     contact.nuumber= updatedNumber;
