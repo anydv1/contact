@@ -49,7 +49,7 @@ exports.getEditContact = (req, res, next) => {
 };
 
 exports.postEditContact= (req, res) => {
-  console.log('req.body', req.body);
+  //console.log('req.body', req.body);
   const updatedname = req.body.name.trim();
   const updatednumber = req.body.number.trim();
   const oldemail = req.body.email.trim();

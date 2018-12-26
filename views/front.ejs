@@ -39,6 +39,10 @@
                     </ul>
                 </nav>
             </header>
+            <main>
+                    <% if (errorMessage) { %>
+                        <div class="user-message user-message--error"><%= errorMessage %></div>
+                    <% } %>
   <form action="/signup" method="post">
     <div class="form control">
         <h1>Sign Up</h1>
@@ -79,5 +83,6 @@
         </div>
       </div>
   </form>
+  </main>
 </body>
 </html>

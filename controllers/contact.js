@@ -22,20 +22,19 @@ exports.getAddcontact = (req, res, next) => {
 
 
 exports.postAddcontact = (req, res, next) => {
-//console.log('!!!!!!!!!!!!!',req.body);
+console.log('!!!!!!!!!!!!!',req.body.name);
 
   //contacts.push({ name: req.body.name });
   //console.log('!!!!!!!!!1',prodId);
-     const prodId = req.body.contactId;
     const name=req.body.name;
     const email=req.body.email;
     const number=req.body.number;
-    console.log('456788',prodId);
+    
     const contact = new Contact({
-      prodId:prodId,
       name:name,
       email:email,
-      number:number
+      number:number,
+      userId:req.user
     
     });
 contact.save()
@@ -67,10 +66,10 @@ exports.getSignup = (req, res, next) => {
 exports.postSignup=(req,res,next) =>{
   // console.log('wertfyuhijodcfvgbhn');
   // res.redirect('/login');
-  const name=req.body.name.trim();
-  const email=req.body.email.trim();
-  const psw=req.body.psw.trim();
-  const pswcnfrm=req.body.pswcnfrm.trim();
+  const name=req.body.name;
+  const email=req.body.email;
+  const psw=req.body.psw;
+  const pswcnfrm=req.body.pswcnfrm;
    User.findOne({email:email})
    .then(userDoc =>{
           if(userDoc){
@@ -84,7 +83,7 @@ exports.postSignup=(req,res,next) =>{
     name:name,
     email:email,
     psw:hashedPassword,
-    pswcnfrm:hashedPassword
+    pswcnfrm:pswcnfrm
  
   });
 return user.save()
@@ -99,12 +98,13 @@ return user.save()
 });
 };
 // contact route
+
 exports.getContact=(req, res, next) =>{
-  Contact.find()
+  console.log('23456789',req.user.email)
+  Contact.find({userId:req.user._id})
   .then(contacts =>{
     //console.log(contacts);
-  
-  res.render('contact',{
+   res.render('contact',{
     prods:contacts,
     pageTitle:'Contacts',
     path:'/contact',

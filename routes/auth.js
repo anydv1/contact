@@ -1,4 +1,6 @@
 const path = require('path');
+const { check ,body} = require('express-validator/check');
+const User = require('../models/user');
 
 const express = require('express')
 //const rootDir = require('../util/path');
@@ -9,11 +11,24 @@ const productsController = require('../controllers/contact');
 
 
 const router = express.Router();
+
+
 router.get('/signup', productsController.getSignup);
 router.post('/signup', productsController.postSignup);
 
  router.get('/login', productsController.getLogin);
- router.post('/login', productsController.postLogin);
+ router.post('/login',
+ [
+
+    body('email')
+    .isEmail()
+    .withMessage('Please enter a valid email address.'),
+  body('psw', 'Password has to be valid.')
+    .isLength({ min:3 })
+    .isAlphanumeric()
+],
+ productsController.postLogin);
+
  router.post('/logout', productsController.postLogout);
 
 module.exports = router;

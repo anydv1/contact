@@ -18,7 +18,8 @@ const contactSchema = new Schema({
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   }
 });
 var contact = mongoose.model('Contact', contactSchema)
