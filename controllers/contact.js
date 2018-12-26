@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { validationResult } = require('express-validator/check');
 
 const Contact = require('../models/contact');
 const User = require('../models/user');
@@ -50,16 +51,25 @@ contact.save()
 
 
 exports.getSignup = (req, res, next) => {
-  res.render('front', {
+  let message = req.flash('error');
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+    res.render('front', {
     pageTitle: 'Sign Up',
     path: '/signup',
-   errorMessage: req.flash('error'),
-// errorMessage: req.flash('error'),
-     editing:true,
-    isAuthenticated:false
-
-
+    errorMessage: message,
+    oldInput: {
+      email: '',
+      password: '',
+      confirmPassword: ''
+    },
+    isAuthenticated:false,
+    validationErrors: []
   });
+
   //console.log('esgtrfhjk');
 };
 
@@ -69,33 +79,76 @@ exports.postSignup=(req,res,next) =>{
   const name=req.body.name;
   const email=req.body.email;
   const psw=req.body.psw;
-  const pswcnfrm=req.body.pswcnfrm;
-   User.findOne({email:email})
-   .then(userDoc =>{
-          if(userDoc){
-         req.flash('error','Existing User!');
-           return res.redirect('/signup');
-          }
-          return bcrypt.hash(psw, 12);
-        })
-        .then(hashedPassword => {
-  const user = new User({
-    name:name,
-    email:email,
-    psw:hashedPassword,
-    pswcnfrm:pswcnfrm
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.array());
+    return res.status(422).render('front', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email: email,
+       psw: psw,
+        pswcnfrm: req.body.pswcnfrmrd
+      },
+    isAuthenticated:false,
+    validationErrors: errors.array()
+    });
+  }
+
+  bcrypt
+    .hash(psw, 12)
+
+    .then(hashedPassword => {
+      const user = new User({
+        name: name,
+        email: email,
+        psw: hashedPassword,
+        pswcnfrm: hashedPassword
+      });
+      return user.save();
+    })
+    .then(result => {
+      res.redirect('/login');
+      // return transporter.sendMail({
+      //   to: email,
+      //   from: 'shop@node-complete.com',
+      //   subject: 'Signup succeeded!',
+      //   html: '<h1>You successfully signed up!</h1>'
+      // });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+
+//    User.findOne({email:email})
+//    .then(userDoc =>{
+//           if(userDoc){
+//          req.flash('error','Existing User!');
+//            return res.redirect('/signup');
+//           }
+//           return bcrypt.hash(psw, 12);
+//         })
+//         .then(hashedPassword => {
+//   const user = new User({
+//     name:name,
+//     email:email,
+//     psw:hashedPassword,
+//     pswcnfrm:req.body.pswcnfrm
  
-  });
-return user.save()
-})
-.then(result => {
-  // console.log(result);
-  console.log('Signed Up');
-  res.redirect('/login');
-})
-.catch(err => {
-  console.log(err);
-});
+//   });
+// return user.save()
+// })
+// .then(result => {
+//   // console.log(result);
+//   console.log('Signed Up');
+//   res.redirect('/login');
+// })
+// .catch(err => {
+//   console.log(err);
+// });
 };
 // contact route
 

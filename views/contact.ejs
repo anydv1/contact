@@ -107,10 +107,13 @@
         var email = document.getElementById(`email${id}`).innerHTML;
 
         console.log("name number", name, number, email);
-        axios.post('/update', {name : name, number : number, email : email}).then(function(updatedData){
+        axios.post('/update', {name : name, number : number, email : email})
+        .then(function(updatedData){
                 if(updatedData.status){
                     console.log("updateddddd", updatedData)
-
+                    setInterval(function(){
+                       window.location='/contact'
+                    },1000)
 
                 }
         })

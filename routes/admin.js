@@ -22,7 +22,7 @@ router.get('/contact',isAuth, productsController.getContact);
 
 // router.get('/update',  adminController.getEditContact);
  router.post('/update',  adminController.postEditContact);
-router.post('/delete', adminController.postDeleteContact);
+router.post('/delete', isAuth, adminController.postDeleteContact);
 
 
 module.exports = router;

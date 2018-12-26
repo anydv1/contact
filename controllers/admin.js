@@ -133,8 +133,9 @@ exports.getProfile = (req, res, next) => {
 
 
 exports.postDeleteContact= (req, res, next) => {
-  const prodId = req.body.contacttId;
-  Contact.findOneAndDelete(prodId)
+  const prodId = req.body.contactId;
+  console.log('qwertyuio',prodId);
+  Contact.deleteOne({_id: prodId, userId: req.user._id})
     .then(() => {
       console.log('DESTROYED PRODUCT');
       res.redirect('/contact');
