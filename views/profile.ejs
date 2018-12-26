@@ -43,22 +43,22 @@
             <main>
               
                     <div class="grid">
+                            <form action="/update" method="POST">
                             <% if (isAuthenticated) { %>
                         <% for (let user   of prods) { %>
                             <article class="card product-item">
                                 <div class="card__header">
-                                    <h1 class="user__name">
+                                    <h1 class="user__title">
                                       My Profile
                                     </h1>
                            </div>
                                   <div class="card__content">
-                                        <h2 class="user__email">
-                                   Name- <%= user.name %>
-                                              </h2>
-                                    <h2 class="user__email">
-                                      Email- <%= user.email %>
-                                    </h2>
-                                    <input type="hidden"value="<%= prods._id %>" name="contactId">
+                                        <h2 class="user__email"> Name- <%= user.name %></h2>
+                                    <h2 class="user__email"> Email- <%= user.email %> </h2>
+                                  
+                                        <input type="hidden" value="<%=prods._id %>" name="productId">
+                        
+                                    </form>
                                 </div>
                             </article>
                             <% } %>

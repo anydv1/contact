@@ -17,6 +17,14 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const MONGO_URL = 'mongodb://localhost:27017/contacts';
 
 const app = express();
+// app.use(function(req, res, next) {
+//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+//   next();
+// });
+app.use(function(req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+});
 const store = new MongoDBStore({
   uri: MONGO_URL,
   collection: 'sessions'
@@ -30,6 +38,7 @@ const adminRoutes = require('./routes/admin');
  const contactRoutes = require('./routes/contact');
 const signRoutes = require('./routes/auth');
 app.use(flash());
+
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

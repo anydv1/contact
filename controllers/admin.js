@@ -109,9 +109,12 @@ exports.postEditContact= (req, res) => {
 
 
 exports.getProfile = (req, res, next) => {
-  const CurrentUser = req.body.email;
-  console.log('2222222222222',req.body.user)
-  User.find()
+
+  const email= req.user.email;
+  const name= req.user.name;
+
+  //console.log('2222222222222',req.user.email,typeof(email));
+  User.find({email : email})
   .then(users =>{
   res.render('profile', {
     pageTitle: 'My Profile',
@@ -119,10 +122,12 @@ exports.getProfile = (req, res, next) => {
     prods: users,
     editing:true,
     isAuthenticated:req.session.isLoggedIn,
-     email: CurrentUser
+     email: email,
+     name: name
      
   })
   });
+
   //console.log('QWERTYUi');
 };
 
