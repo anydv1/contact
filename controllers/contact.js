@@ -54,7 +54,8 @@ exports.getSignup = (req, res, next) => {
   res.render('front', {
     pageTitle: 'Sign Up',
     path: '/signup',
-    // errorMessage: req.flash('error'),
+   errorMessage: req.flash('error'),
+// errorMessage: req.flash('error'),
      editing:true,
     isAuthenticated:false
 
@@ -66,14 +67,14 @@ exports.getSignup = (req, res, next) => {
 exports.postSignup=(req,res,next) =>{
   // console.log('wertfyuhijodcfvgbhn');
   // res.redirect('/login');
-  const name=req.body.name;
-  const email=req.body.email;
-  const psw=req.body.psw;
-  const pswcnfrm=req.body.pswcnfrm;
+  const name=req.body.name.trim();
+  const email=req.body.email.trim();
+  const psw=req.body.psw.trim();
+  const pswcnfrm=req.body.pswcnfrm.trim();
    User.findOne({email:email})
    .then(userDoc =>{
           if(userDoc){
-        //  req.flash('error','Existing User!');
+         req.flash('error','Existing User!');
            return res.redirect('/signup');
           }
           return bcrypt.hash(psw, 12);
@@ -83,7 +84,7 @@ exports.postSignup=(req,res,next) =>{
     name:name,
     email:email,
     psw:hashedPassword,
-    pswcnfrm:pswcnfrm
+    pswcnfrm:hashedPassword
  
   });
 return user.save()
@@ -131,7 +132,7 @@ exports.postLogin = (req, res, next) => {
   const name=req.body.name;
   const email=req.body.email;
   const psw=req.body.psw;
-  const pswcnfrm=req.body.pswcnfrm;
+
 
   User.findOne({ email: email })
     .then(user => {

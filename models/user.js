@@ -16,12 +16,11 @@ const userSchema = new Schema({
     type: String,
     required: true
     
- }
-//  , pswcnfrm: {
-//     type: String,
-//     required: true
-    
-// }
+ },
+  pswcnfrm: {
+    type: String
+    // required: true
+     }
   
 });
 
