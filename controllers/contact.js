@@ -13,7 +13,8 @@ exports.getAddcontact = (req, res, next) => {
     pageTitle: 'Add Contact',
     path: '/add-contact',
     prods: contacts,
-    editing:true
+    editing:true,
+    isAuthenticated:req.session.isLoggedIn
   })
   });
   //console.log('QWERTYUi');
@@ -54,7 +55,9 @@ exports.getSignup = (req, res, next) => {
     pageTitle: 'Sign Up',
     path: '/signup',
     // errorMessage: req.flash('error'),
-     editing:true
+     editing:true,
+    isAuthenticated:false
+
 
   });
   //console.log('esgtrfhjk');
@@ -103,7 +106,9 @@ exports.getContact=(req, res, next) =>{
   res.render('contact',{
     prods:contacts,
     pageTitle:'Contacts',
-    path:'/contact'
+    path:'/contact',
+    isAuthenticated:req.session.isLoggedIn
+
   });
 })
   // console.log('get contactsssssssssss');
@@ -116,7 +121,8 @@ exports.getLogin=(req, res, next) =>{
   res.render('login',{
     pageTitle:'Log In',
     path: '/login',
-    errorMessage: req.flash('error')
+    isAuthenticated:false,
+errorMessage: req.flash('error')
 
   });
 };
@@ -152,6 +158,13 @@ exports.postLogin = (req, res, next) => {
         });
     })
     .catch(err => console.log(err));
+};
+
+exports.postLogout = (req, res, next) => {
+  req.session.destroy(err => {
+    console.log(err);
+    res.redirect('/login');
+  });
 };
 
 // exports.postLogin=(req, res, next)  =>{

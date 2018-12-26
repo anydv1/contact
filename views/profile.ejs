@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Contact-list </title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/forms.css">
+
+</head>
+<body>
+        <header class="main-header">
+                <nav class="main-header__nav">
+                    <ul class="main-header__item-list">
+                            <% if (isAuthenticated) { %>
+                        <li class="main-header__item"><a href="/contact">My Contacts</a></li>
+                        <li class="main-header__item"><a class="active" href="/add-contact">Add Contatct</a></li>
+                    
+                        <li class="main-header__item">
+                                <form action="/profile" method="post">
+                                    <a class="active" href="/profile">My profile</a>
+                                </form>
+                            </li>
+                        <li class="main-header__item">
+                                <form action="/logout" method="post">
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </li>
+                            <% } %>
+                            <% if (!isAuthenticated) { %>
+
+                            <li class="main-header__item"><a class="active" href="/login">Login</a></li>
+                            <li class="main-header__item"><a class="active" href="/signup">Sign Up</a></li
+
+                             <% } %>
+                    </ul>
+                </nav>
+            </header>
+
+    <body>
+
+            <main>
+              
+                    <div class="grid">
+                            <% if (isAuthenticated) { %>
+                        <% for (let user   of prods) { %>
+                            <article class="card product-item">
+                                <div class="card__header">
+                                    <h1 class="user__name">
+                                      My Profile
+                                    </h1>
+                           </div>
+                                  <div class="card__content">
+                                        <h2 class="user__email">
+                                   Name- <%= user.name %>
+                                              </h2>
+                                    <h2 class="user__email">
+                                      Email- <%= user.email %>
+                                    </h2>
+                                    <input type="hidden"value="<%= prods._id %>" name="contactId">
+                                </div>
+                            </article>
+                            <% } %>
+                            <% } %>
+                    </div>
+            
+                    </main>
+    </body>
+    </html>

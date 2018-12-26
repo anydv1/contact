@@ -1,6 +1,8 @@
 const path = require('path');
 
 const express = require('express')
+const isAuth = require('../middleware/is-auth');
+
 //const rootDir = require('../util/path');
 //const authData = require('./auth');
 //const contactList = require('./contact');
@@ -9,13 +11,14 @@ const adminController = require('../controllers/admin');
 
 
 const router = express.Router();
-router.get('/add-contact', productsController.getAddcontact);
+router.get('/add-contact',isAuth, productsController.getAddcontact);
 router.post('/add-contact', productsController.postAddcontact);
 
+router.get('/profile',isAuth,adminController.getProfile);
+//router.post('/profile',adminController.postProfile);
 
 
-
-router.get('/contact', productsController.getContact);
+router.get('/contact',isAuth, productsController.getContact);
 
 // router.get('/update',  adminController.getEditContact);
  router.post('/update',  adminController.postEditContact);

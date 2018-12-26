@@ -50,8 +50,8 @@ exports.getEditContact = (req, res, next) => {
 
 exports.postEditContact= (req, res) => {
   console.log('req.body', req.body);
-  const updatedname = req.body.name;
-  const updatednumber = req.body.number;
+  const updatedname = req.body.name.trim();
+  const updatednumber = req.body.number.trim();
   const oldemail = req.body.email.trim();
 
  console.log('345678',updatedname, updatednumber, oldemail, typeof(oldemail), oldemail.length);
@@ -108,7 +108,23 @@ exports.postEditContact= (req, res) => {
 
 
 
-
+exports.getProfile = (req, res, next) => {
+  const CurrentUser = req.body.email;
+  console.log('2222222222222',req.body.user)
+  User.find()
+  .then(users =>{
+  res.render('profile', {
+    pageTitle: 'My Profile',
+    path: '/profile',
+    prods: users,
+    editing:true,
+    isAuthenticated:req.session.isLoggedIn,
+     email: CurrentUser
+     
+  })
+  });
+  //console.log('QWERTYUi');
+};
 
 
 exports.postDeleteContact= (req, res, next) => {
@@ -120,3 +136,4 @@ exports.postDeleteContact= (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+

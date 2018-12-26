@@ -14,11 +14,27 @@
         <header class="main-header">
                 <nav class="main-header__nav">
                     <ul class="main-header__item-list">
+                            <% if (isAuthenticated) { %>
                         <li class="main-header__item"><a href="/contact">My contacts</a></li>
                         <li class="main-header__item"><a class="active" href="/add-contact">Add Contacts</a></li>
-                        <li class="main-header__item"><a class="active" href="/login">Login</a></li>
-                        <li class="main-header__item"><a class="active" href="/signup">Sign Up</a></li>
+                       
+                        <li class="main-header__item">
+                                <form action="/profile" method="post">
+                                    <a class="active" href="/profile">My profile</a>
+                                </form>
+                            </li>
 
+                        <li class="main-header__item">
+                                <form action="/logout" method="post">
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </li>
+
+                            <% } %>
+                            <% if (!isAuthenticated) { %>
+                            <li class="main-header__item"><a class="active" href="/login">Login</a></li>
+                            <li class="main-header__item"><a class="active" href="/signup">Sign Up</a></li>
+                            <% } %>
 
                     </ul>
                 </nav>
